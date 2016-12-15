@@ -31,6 +31,7 @@ namespace Chance.MvvmCross.Plugins.UserInteraction.Droid
 				if (CurrentActivity == null) return;
 				new AlertDialog.Builder(CurrentActivity)
 					.SetMessage(message)
+		                .SetCancelable(false)
 						.SetTitle(title)
 						.SetPositiveButton(okButton, delegate {
 							if (answer != null)
@@ -59,6 +60,7 @@ namespace Chance.MvvmCross.Plugins.UserInteraction.Droid
                 if (CurrentActivity == null) return;
                 new AlertDialog.Builder(CurrentActivity)
                     .SetMessage(message)
+		                .SetCancelable(false)
                         .SetTitle(title)
                         .SetPositiveButton(positive, delegate {
                             if (answer != null)
@@ -90,6 +92,7 @@ namespace Chance.MvvmCross.Plugins.UserInteraction.Droid
 				if (CurrentActivity == null) return;
 				new AlertDialog.Builder(CurrentActivity)
 					.SetMessage(message)
+		               	.SetCancelable(false)
 						.SetTitle(title)
 						.SetPositiveButton(okButton, delegate {
 							if (done != null)
@@ -123,6 +126,7 @@ namespace Chance.MvvmCross.Plugins.UserInteraction.Droid
 
 				new AlertDialog.Builder(CurrentActivity)
 					.SetMessage(message)
+		                .SetCancelable(false)
 						.SetTitle(title)
 						.SetView(input)
 						.SetPositiveButton(okButton, delegate {
