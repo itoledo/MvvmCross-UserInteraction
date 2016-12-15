@@ -60,7 +60,7 @@ namespace Chance.MvvmCross.Plugins.UserInteraction.Droid
                 if (CurrentActivity == null) return;
                 new AlertDialog.Builder(CurrentActivity)
                     .SetMessage(message)
-						.SetCancelable(false)
+                        .SetCancelable(false)
                         .SetTitle(title)
                         .SetPositiveButton(positive, delegate {
                             if (answer != null)
