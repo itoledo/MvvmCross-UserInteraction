@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MvvmCross.Platform;
 using MvvmCross.Platform.Droid.Platform;
 using AlertDialog = Android.Support.V7.App.AlertDialog;
+using Android.Views;
 
 namespace Chance.MvvmCross.Plugins.UserInteraction.Droid
 {
@@ -123,6 +124,7 @@ namespace Chance.MvvmCross.Plugins.UserInteraction.Droid
 			Application.SynchronizationContext.Post(ignored => {
 				if (CurrentActivity == null) return;
 				var input = new EditText(CurrentActivity) { Hint = hint, Text = initialText };
+				input.SetSingleLine(true);
 
 				new AlertDialog.Builder(CurrentActivity)
 					.SetMessage(message)
