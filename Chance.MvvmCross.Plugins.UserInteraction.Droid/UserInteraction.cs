@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using MvvmCross.Platform;
 using MvvmCross.Platform.Droid.Platform;
 using AlertDialog = Android.Support.V7.App.AlertDialog;
+using Android.Text;
 
 namespace Chance.MvvmCross.Plugins.UserInteraction.Droid
 {
@@ -110,7 +111,7 @@ namespace Chance.MvvmCross.Plugins.UserInteraction.Droid
 			return tcs.Task;
 		}
 
-		public void Input(string message, Action<string> okClicked, string placeholder = null, string title = null, string initialText = null)
+		public void Input(string message, Action<string> okClicked, string placeholder = null, string title = null, string initialText = null, bool itsPassword = false)
 		{
 			Input(message, (ok, text) => {
 				if (ok)
@@ -119,12 +120,15 @@ namespace Chance.MvvmCross.Plugins.UserInteraction.Droid
 	      	placeholder, title, initialText);
 		}
 
-		public void Input(string message, Action<bool, string> answer, string hint = null, string title = null, string initialText = null)
+		public void Input(string message, Action<bool, string> answer, string hint = null, string title = null, string initialText = null, bool itsPassword = false)
 		{
 			Application.SynchronizationContext.Post(ignored => {
 				if (CurrentActivity == null) return;
 				var input = new EditText(CurrentActivity) { Hint = hint, Text = initialText };
 				input.SetSingleLine(true);
+
+				if (itsPassword)
+					input.InputType = InputTypes.TextVariationPassword; // doesn't work
 
 				new AlertDialog.Builder(CurrentActivity)
 					.SetMessage(message)
@@ -143,7 +147,7 @@ namespace Chance.MvvmCross.Plugins.UserInteraction.Droid
 			}, null);
 		}
 
-		public Task<InputResponse> InputAsync(string message, string placeholder = null, string title = null, string initialText = null)
+		public Task<InputResponse> InputAsync(string message, string placeholder = null, string title = null, string initialText = null, bool itsPassword = false)
 		{
 			var tcs = new TaskCompletionSource<InputResponse>();
 			Input(message, (ok, text) => tcs.SetResult(new InputResponse {Ok = ok, Text = text}),	placeholder, title, initialText);

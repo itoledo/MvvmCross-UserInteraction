@@ -92,7 +92,7 @@ namespace Chance.MvvmCross.Plugins.UserInteraction.Touch
 			return tcs.Task;
         }
 
-		public void Input(string message, Action<string> okClicked, string placeholder = null, string title = null, string initialText = null)
+		public void Input(string message, Action<string> okClicked, string placeholder = null, string title = null, string initialText = null, bool itsPassword = false)
 		{
 			Input(message, (ok, text) =>
 			{
@@ -102,12 +102,12 @@ namespace Chance.MvvmCross.Plugins.UserInteraction.Touch
 	      	placeholder, title, initialText);
 		}
 
-		public void Input(string message, Action<bool, string> answer, string placeholder = null, string title = null, string initialText = null)
+		public void Input(string message, Action<bool, string> answer, string placeholder = null, string title = null, string initialText = null, bool itsPassword = false)
 		{
 			UIApplication.SharedApplication.InvokeOnMainThread(() =>
 			{
 				var input = new UIAlertView(title ?? string.Empty, message, null, CANCEL, OK);
-				input.AlertViewStyle = UIAlertViewStyle.PlainTextInput;
+				input.AlertViewStyle = itsPassword ? UIAlertViewStyle.SecureTextInput : UIAlertViewStyle.PlainTextInput;
 				var textField = input.GetTextField(0);
 				textField.Placeholder = placeholder;
 				textField.Text = initialText;
@@ -121,7 +121,7 @@ namespace Chance.MvvmCross.Plugins.UserInteraction.Touch
 			});
 		}
 
-		public Task<InputResponse> InputAsync(string message, string placeholder = null, string title = null, string initialText = null)
+		public Task<InputResponse> InputAsync(string message, string placeholder = null, string title = null, string initialText = null, bool itsPassword = false)
 		{
 			var tcs = new TaskCompletionSource<InputResponse>();
 			Input(message, (ok, text) => tcs.TrySetResult(new InputResponse {Ok = ok, Text = text}), placeholder, title, initialText);
