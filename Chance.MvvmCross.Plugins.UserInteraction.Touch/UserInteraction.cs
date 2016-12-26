@@ -6,22 +6,27 @@ namespace Chance.MvvmCross.Plugins.UserInteraction.Touch
 {
 	public class UserInteraction : IUserInteraction
 	{
-		public void Confirm(string message, Action okClicked, string title = "", string okButton = "OK", string cancelButton = "Cancel")
+		const string OK = "OK";
+		const string YES = "Да";
+		const string NO = "Нет";
+		const string CANCEL = "Отмена";
+		const string MAYBE = "Возможно";
+
+		public void Confirm(string message, Action okClicked, string title = null)
 		{
 			Confirm(message, confirmed =>
 			{
 				if (confirmed)
 					okClicked();
 			},
-			title, okButton, cancelButton);
+			title);
 		}
 
-		public void Confirm(string message, Action<bool> answer, string title = "", string okButton = "OK", string cancelButton = "Cancel")
+		public void Confirm(string message, Action<bool> answer, string title = null)
 		{
 			UIApplication.SharedApplication.InvokeOnMainThread(() =>
 			{
-				var confirm = new UIAlertView(title ?? string.Empty, message,
-				                              null, cancelButton, okButton);
+				var confirm = new UIAlertView(title ?? string.Empty, message, null, CANCEL, OK);
 				if (answer != null)
 				{
 					confirm.Clicked +=
@@ -32,16 +37,16 @@ namespace Chance.MvvmCross.Plugins.UserInteraction.Touch
 			});
 		}
 
-		public Task<bool> ConfirmAsync(string message, string title = "", string okButton = "OK", string cancelButton = "Cancel")
+		public Task<bool> ConfirmAsync(string message, string title = null)
 		{
 			var tcs = new TaskCompletionSource<bool>();
-			Confirm(message, (r) => tcs.TrySetResult(r), title, okButton, cancelButton);
+			Confirm(message, (r) => tcs.TrySetResult(r), title);
 			return tcs.Task;
         }
 
-        public void ConfirmThreeButtons(string message, Action<ConfirmThreeButtonsResponse> answer, string title = null, string positive = "Yes", string negative = "No", string neutral = "Maybe")
+        public void ConfirmThreeButtons(string message, Action<ConfirmThreeButtonsResponse> answer, string title = null)
         {
-            var confirm = new UIAlertView(title ?? string.Empty, message, null, negative, positive, neutral);
+			var confirm = new UIAlertView(title ?? string.Empty, message, null, CANCEL, OK, MAYBE);
             if (answer != null)
             {
                 confirm.Clicked +=
@@ -59,18 +64,18 @@ namespace Chance.MvvmCross.Plugins.UserInteraction.Touch
             }
         }
 
-        public Task<ConfirmThreeButtonsResponse> ConfirmThreeButtonsAsync(string message, string title = null, string positive = "Yes", string negative = "No", string neutral = "Maybe")
+        public Task<ConfirmThreeButtonsResponse> ConfirmThreeButtonsAsync(string message, string title = null)
         {
             var tcs = new TaskCompletionSource<ConfirmThreeButtonsResponse>();
-			ConfirmThreeButtons(message, (r) => tcs.TrySetResult(r), title, positive, negative, neutral);
+			ConfirmThreeButtons(message, (r) => tcs.TrySetResult(r), title);
             return tcs.Task;
         }
 
-		public void Alert(string message, Action done = null, string title = "", string okButton = "OK")
+		public void Alert(string message, Action done = null, string title = null)
 		{
 			UIApplication.SharedApplication.InvokeOnMainThread(() =>
 			{
-				var alert = new UIAlertView(title ?? string.Empty, message, null, okButton);
+				var alert = new UIAlertView(title ?? string.Empty, message, null, OK);
 				if (done != null)
 				{
 					alert.Clicked += (sender, args) => done();
@@ -80,28 +85,28 @@ namespace Chance.MvvmCross.Plugins.UserInteraction.Touch
 
 		}
 
-		public Task AlertAsync(string message, string title = "", string okButton = "OK")
+		public Task AlertAsync(string message, string title = null)
 		{
 			var tcs = new TaskCompletionSource<object>();
-			Alert(message, () => tcs.TrySetResult(null), title, okButton);
+			Alert(message, () => tcs.TrySetResult(null), title);
 			return tcs.Task;
         }
 
-		public void Input(string message, Action<string> okClicked, string placeholder = null, string title = null, string okButton = "OK", string cancelButton = "Cancel", string initialText = null)
+		public void Input(string message, Action<string> okClicked, string placeholder = null, string title = null, string initialText = null)
 		{
 			Input(message, (ok, text) =>
 			{
 				if (ok)
 					okClicked(text);
 			},
-				placeholder, title, okButton, cancelButton, initialText);
+	      	placeholder, title, initialText);
 		}
 
-		public void Input(string message, Action<bool, string> answer, string placeholder = null, string title = null, string okButton = "OK", string cancelButton = "Cancel", string initialText = null)
+		public void Input(string message, Action<bool, string> answer, string placeholder = null, string title = null, string initialText = null)
 		{
 			UIApplication.SharedApplication.InvokeOnMainThread(() =>
 			{
-				var input = new UIAlertView(title ?? string.Empty, message, null, cancelButton, okButton);
+				var input = new UIAlertView(title ?? string.Empty, message, null, CANCEL, OK);
 				input.AlertViewStyle = UIAlertViewStyle.PlainTextInput;
 				var textField = input.GetTextField(0);
 				textField.Placeholder = placeholder;
@@ -116,10 +121,10 @@ namespace Chance.MvvmCross.Plugins.UserInteraction.Touch
 			});
 		}
 
-		public Task<InputResponse> InputAsync(string message, string placeholder = null, string title = null, string okButton = "OK", string cancelButton = "Cancel", string initialText = null)
+		public Task<InputResponse> InputAsync(string message, string placeholder = null, string title = null, string initialText = null)
 		{
 			var tcs = new TaskCompletionSource<InputResponse>();
-			Input(message, (ok, text) => tcs.TrySetResult(new InputResponse {Ok = ok, Text = text}),	placeholder, title, okButton, cancelButton, initialText);
+			Input(message, (ok, text) => tcs.TrySetResult(new InputResponse {Ok = ok, Text = text}), placeholder, title, initialText);
 			return tcs.Task;
 		}
 	}

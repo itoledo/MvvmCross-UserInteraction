@@ -20,16 +20,15 @@ namespace Chance.MvvmCross.Plugins.UserInteraction.Droid
 			get { return Mvx.Resolve<IMvxAndroidCurrentTopActivity>().Activity; }
 		}
 
-		public void Confirm(string message, Action okClicked, string title = null, string okButton = OK, string cancelButton = CANCEL)
+		public void Confirm(string message, Action okClicked, string title = null)
 		{
 			Confirm(message, confirmed => {
 				if (confirmed)
 					okClicked();
-			},
-			title, okButton, cancelButton);
+			}, title);
 		}
 
-		public void Confirm(string message, Action<bool> answer, string title = null, string okButton = OK, string cancelButton = CANCEL)
+		public void Confirm(string message, Action<bool> answer, string title = null)
 		{
 			Application.SynchronizationContext.Post(ignored => {
 				if (CurrentActivity == null) return;
@@ -37,11 +36,11 @@ namespace Chance.MvvmCross.Plugins.UserInteraction.Droid
 					.SetMessage(message)
 						.SetCancelable(false)
 						.SetTitle(title)
-						.SetPositiveButton(okButton, delegate {
+		               	.SetPositiveButton(OK, delegate {
 							if (answer != null)
 								answer(true);
 						})
-						.SetNegativeButton(cancelButton, delegate {	
+		               .SetNegativeButton(CANCEL, delegate {	
 							if (answer != null)
 								answer(false);
 						})
@@ -49,15 +48,14 @@ namespace Chance.MvvmCross.Plugins.UserInteraction.Droid
 			}, null);
 		}
 
-		public Task<bool> ConfirmAsync(string message, string title = "", string okButton = OK, string cancelButton = CANCEL)
+		public Task<bool> ConfirmAsync(string message, string title = null)
 		{
 			var tcs = new TaskCompletionSource<bool>();
-			Confirm(message, tcs.SetResult, title, okButton, cancelButton);
+			Confirm(message, tcs.SetResult, title);
 			return tcs.Task;
 		}
 
-		public void ConfirmThreeButtons(string message, Action<ConfirmThreeButtonsResponse> answer, string title = null, string positive = YES, string negative = NO,
-        	string neutral = MAYBE)
+		public void ConfirmThreeButtons(string message, Action<ConfirmThreeButtonsResponse> answer, string title = null)
 	    {
 	        Application.SynchronizationContext.Post(ignored =>
             {
@@ -66,15 +64,15 @@ namespace Chance.MvvmCross.Plugins.UserInteraction.Droid
                     .SetMessage(message)
                         .SetCancelable(false)
                         .SetTitle(title)
-                        .SetPositiveButton(positive, delegate {
+		               	.SetPositiveButton(YES, delegate {
                             if (answer != null)
                                 answer(ConfirmThreeButtonsResponse.Positive);
                         })
-                        .SetNegativeButton(negative, delegate {
+		               	.SetNegativeButton(NO, delegate {
                             if (answer != null)
                                 answer(ConfirmThreeButtonsResponse.Negative);
                         })
-                        .SetNeutralButton(neutral, delegate {
+		               	.SetNeutralButton(MAYBE, delegate {
                             if (answer != null)
                                 answer(ConfirmThreeButtonsResponse.Neutral);
                         })
@@ -82,15 +80,14 @@ namespace Chance.MvvmCross.Plugins.UserInteraction.Droid
             }, null);
 	    }
 
-		public Task<ConfirmThreeButtonsResponse> ConfirmThreeButtonsAsync(string message, string title = null, string positive = YES, string negative = NO,
-      		string neutral = MAYBE)
+		public Task<ConfirmThreeButtonsResponse> ConfirmThreeButtonsAsync(string message, string title = null)
 	    {
 	        var tcs = new TaskCompletionSource<ConfirmThreeButtonsResponse>();
-	        ConfirmThreeButtons(message, tcs.SetResult, title, positive, negative, neutral);
+	        ConfirmThreeButtons(message, tcs.SetResult, title);
 	        return tcs.Task;
 	    }
 
-		public void Alert(string message, Action done = null, string title = "", string okButton = OK)
+		public void Alert(string message, Action done = null, string title = null)
 		{
 			Application.SynchronizationContext.Post(ignored => {
 				if (CurrentActivity == null) return;
@@ -98,7 +95,7 @@ namespace Chance.MvvmCross.Plugins.UserInteraction.Droid
 					.SetMessage(message)
 						.SetCancelable(false)
 						.SetTitle(title)
-						.SetPositiveButton(okButton, delegate {
+		               	.SetPositiveButton(OK, delegate {
 							if (done != null)
 								done();
 						})
@@ -106,23 +103,23 @@ namespace Chance.MvvmCross.Plugins.UserInteraction.Droid
 			}, null);
 		}
 
-		public Task AlertAsync(string message, string title = "", string okButton = OK)
+		public Task AlertAsync(string message, string title = null)
 		{
 			var tcs = new TaskCompletionSource<object>();
-			Alert(message, () => tcs.SetResult(null), title, okButton);
+			Alert(message, () => tcs.SetResult(null), title);
 			return tcs.Task;
 		}
 
-		public void Input(string message, Action<string> okClicked, string placeholder = null, string title = null, string okButton = OK, string cancelButton = CANCEL, string initialText = null)
+		public void Input(string message, Action<string> okClicked, string placeholder = null, string title = null, string initialText = null)
 		{
 			Input(message, (ok, text) => {
 				if (ok)
 					okClicked(text);
 			},
-				placeholder, title, okButton, cancelButton, initialText);
+	      	placeholder, title, initialText);
 		}
 
-		public void Input(string message, Action<bool, string> answer, string hint = null, string title = null, string okButton = OK, string cancelButton = CANCEL, string initialText = null)
+		public void Input(string message, Action<bool, string> answer, string hint = null, string title = null, string initialText = null)
 		{
 			Application.SynchronizationContext.Post(ignored => {
 				if (CurrentActivity == null) return;
@@ -134,11 +131,11 @@ namespace Chance.MvvmCross.Plugins.UserInteraction.Droid
 						.SetCancelable(false)
 						.SetTitle(title)
 						.SetView(input)
-						.SetPositiveButton(okButton, delegate {
+		               	.SetPositiveButton(OK, delegate {
 							if (answer != null)
 								answer(true, input.Text);
 						})
-						.SetNegativeButton(cancelButton, delegate {	
+		               	.SetNegativeButton(CANCEL, delegate {	
 							if (answer != null)
 								answer(false, input.Text);
 						})
@@ -146,10 +143,10 @@ namespace Chance.MvvmCross.Plugins.UserInteraction.Droid
 			}, null);
 		}
 
-		public Task<InputResponse> InputAsync(string message, string placeholder = null, string title = null, string okButton = OK, string cancelButton = CANCEL, string initialText = null)
+		public Task<InputResponse> InputAsync(string message, string placeholder = null, string title = null, string initialText = null)
 		{
 			var tcs = new TaskCompletionSource<InputResponse>();
-			Input(message, (ok, text) => tcs.SetResult(new InputResponse {Ok = ok, Text = text}),	placeholder, title, okButton, cancelButton, initialText);
+			Input(message, (ok, text) => tcs.SetResult(new InputResponse {Ok = ok, Text = text}),	placeholder, title, initialText);
 			return tcs.Task;
 		}
 	}
