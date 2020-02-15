@@ -18,20 +18,20 @@
 	</metadata>
 	<files>		
 		<!-- netstandard2.0 -->
-		<file src="..\bin\Release\netstandard2.0\Chance.MvvmCross.Plugins.UserInteraction.dll" target="lib\netstandard2.0\Chance.MvvmCross.Plugins.UserInteraction.dll" />
+		<file src="..\bin\Release\NetStandard\netstandard2.0\Chance.MvvmCross.Plugins.UserInteraction.dll" target="lib\netstandard2.0\Chance.MvvmCross.Plugins.UserInteraction.dll" />
     
 		<!-- droid -->
-		<file src="..\bin\Release\netstandard2.0\Chance.MvvmCross.Plugins.UserInteraction.dll" target="lib\MonoAndroid\Chance.MvvmCross.Plugins.UserInteraction.dll" />
+		<file src="..\bin\Release\NetStandard\netstandard2.0\Chance.MvvmCross.Plugins.UserInteraction.dll" target="lib\MonoAndroid\Chance.MvvmCross.Plugins.UserInteraction.dll" />
 		<file src="..\bin\Release\Droid\Chance.MvvmCross.Plugins.UserInteraction.Droid.dll" target="lib\MonoAndroid\Chance.MvvmCross.Plugins.UserInteraction.Droid.dll" />
     <file src="BootstrapContent\UserInteractionPluginBootstrap.cs.pp" target="content\MonoAndroid\Bootstrap\UserInteractionPluginBootstrap.cs.pp" />
 		
 		<!-- touch -->
-		<file src="..\bin\Release\netstandard2.0\Chance.MvvmCross.Plugins.UserInteraction.dll" target="lib\Xamarin.iOS10\Chance.MvvmCross.Plugins.UserInteraction.dll" />
+		<file src="..\bin\Release\NetStandard\netstandard2.0\Chance.MvvmCross.Plugins.UserInteraction.dll" target="lib\Xamarin.iOS10\Chance.MvvmCross.Plugins.UserInteraction.dll" />
 		<file src="..\bin\Release\Touch\Chance.MvvmCross.Plugins.UserInteraction.Touch.dll" target="lib\Xamarin.iOS10\Chance.MvvmCross.Plugins.UserInteraction.Touch.dll" />
     <file src="TouchBootstrapContent\UserInteractionPluginBootstrap.cs.pp" target="content\Xamarin.iOS10\Bootstrap\UserInteractionPluginBootstrap.cs.pp" />
 
     <!-- UWP -->
-    <file src="..\bin\Release\netstandard2.0\Chance.MvvmCross.Plugins.UserInteraction.dll" target="lib\uap10.0\Chance.MvvmCross.Plugins.UserInteraction.dll" />
+    <file src="..\bin\Release\NetStandard\netstandard2.0\Chance.MvvmCross.Plugins.UserInteraction.dll" target="lib\uap10.0\Chance.MvvmCross.Plugins.UserInteraction.dll" />
     <file src="..\bin\Release\Uwp\Chance.MvvmCross.Plugins.UserInteraction.Uwp.dll" target="lib\uap10.0\Chance.MvvmCross.Plugins.UserInteraction.Uwp.dll" />
     <file src="BootstrapContent\UserInteractionPluginBootstrap.cs.pp" target="content\uap10.0\Bootstrap\UserInteractionPluginBootstrap.cs.pp" />
 	</files>
