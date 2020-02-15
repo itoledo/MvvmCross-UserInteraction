@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26430.12
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chance.MvvmCross.Plugins.UserInteraction.Touch", "Chance.MvvmCross.Plugins.UserInteraction.Touch\Chance.MvvmCross.Plugins.UserInteraction.Touch.csproj", "{CA487D21-3429-498C-971E-70A9C4453E6C}"
 EndProject
@@ -13,16 +13,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuspec", "nuspec", "{A70679AB-94DA-4DD6-8C6E-E932F703DB98}"
 	ProjectSection(SolutionItems) = preProject
 		nuspec\Birdie.MvvmCross.Plugins.UserInteraction.nuspec = nuspec\Birdie.MvvmCross.Plugins.UserInteraction.nuspec
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TouchBootstrapContent", "TouchBootstrapContent", "{F89BE4F7-B547-4C66-82DC-38AC0D741C46}"
-	ProjectSection(SolutionItems) = preProject
-		nuspec\TouchBootstrapContent\UserInteractionPluginBootstrap.cs.pp = nuspec\TouchBootstrapContent\UserInteractionPluginBootstrap.cs.pp
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BootstrapContent", "BootstrapContent", "{5BA27F18-EA41-4EE1-A460-ACA3BF54424F}"
-	ProjectSection(SolutionItems) = preProject
-		nuspec\BootstrapContent\UserInteractionPluginBootstrap.cs.pp = nuspec\BootstrapContent\UserInteractionPluginBootstrap.cs.pp
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chance.MvvmCross.Plugins.UserInteraction.Uwp", "Chance.MvvmCross.Plugins.UserInteraction.WindowsUWP\Chance.MvvmCross.Plugins.UserInteraction.Uwp.csproj", "{F7DB4678-D524-4C7A-95ED-8CE83264F393}"
@@ -110,10 +100,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{F89BE4F7-B547-4C66-82DC-38AC0D741C46} = {A70679AB-94DA-4DD6-8C6E-E932F703DB98}
-		{5BA27F18-EA41-4EE1-A460-ACA3BF54424F} = {A70679AB-94DA-4DD6-8C6E-E932F703DB98}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C3F2BB0E-F105-438E-B012-55D27442ED4D}
